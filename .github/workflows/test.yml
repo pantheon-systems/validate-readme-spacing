@@ -1,0 +1,34 @@
+name: Validate Test README
+on:
+  push:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: README validation test
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          filepath: ${{ github.workspace }}/fixtures/good.md
+      - uses: actions/checkout@v3
+      - name: Validate all fields are bad
+        run: |
+          echo "Running checks on fixtures/bad-all.md..."
+          if [[ $( bash check-readme-newlines.sh fixtures/bad-all.md ) ]]; then
+            echo "✅ Validated bad README successfully!"
+            exit 0;
+          else
+            echo "🚫 Invalidated bad README unsuccessfully. Did the bad-all.md file change? 😉"
+            exit 1
+          fi
+      - name: Validate single line is bad
+        run: |
+          echo "Running checks on fixtures/bad-single.md..."
+          if [[ $( bash check-readme-newlines.sh fixtures/bad-single.md ) ]]; then
+            echo "✅ Validated bad README successfully!"
+            exit 0;
+          else
+            echo "🚫 Invalidated bad README unsuccessfully. Did the bad-single.md file change? 😉"
+            exit 1
+          fi
+  
