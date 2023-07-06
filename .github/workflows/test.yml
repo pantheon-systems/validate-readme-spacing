@@ -1,0 +1,17 @@
+name: Validate Test README
+on:
+  push:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: lint & test
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          filepath: ${{ github.workspace }}/fixtures/good.md
+      - name: Shellcheck Lint
+        run: make lint
+      - name: Test "Bad" cases are rejected
+        run: make test
+  

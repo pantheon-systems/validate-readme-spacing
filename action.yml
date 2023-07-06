@@ -1,0 +1,19 @@
+name: WordPress Plugin README.md Validator
+description: Checks a README.md file that uses the standard WordPress readme.txt plugin header format for valid markdown.
+author: pantheon-systems
+branding:
+  icon: file-text
+  color: yellow
+inputs:
+  filepath:
+    description: Relative path to README.md file. Defaults to the root directory of the project.
+    required: false
+    default: ${{ github.workspace }}/README.md
+runs:
+  using: composite
+  steps:
+    - name: Validate Readme
+      shell: bash
+      run: |
+        echo "Validating ${{ inputs.filepath }}..."
+        bash check-readme-newlines.sh ${{ inputs.filepath }}
