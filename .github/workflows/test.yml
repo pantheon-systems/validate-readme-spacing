@@ -18,7 +18,7 @@ jobs:
             echo "✅ Validated bad README successfully!"
             exit 0;
           else
-            echo "🚫 Invalidated bad README unsuccessfully."
+            echo "🚫 Invalidated bad README unsuccessfully. Did the bad-all.md file change? 😉"
             exit 1
           fi
       - name: Validate single line is bad
@@ -28,7 +28,7 @@ jobs:
             echo "✅ Validated bad README successfully!"
             exit 0;
           else
-            echo "🚫 Invalidated bad README unsuccessfully."
+            echo "🚫 Invalidated bad README unsuccessfully. Did the bad-single.md file change? 😉"
             exit 1
           fi
   
