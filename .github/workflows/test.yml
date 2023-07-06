@@ -1,0 +1,13 @@
+name: Validate Test README
+on:
+  push:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: README validation test
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          filepath: ${{ github.workspace }}/fixtures/good.md
+    
