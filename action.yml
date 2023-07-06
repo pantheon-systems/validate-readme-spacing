@@ -1,0 +1,14 @@
+name: WordPress Plugin README.md Validator
+description: Checks a README.md file that uses the standard WordPress readme.txt plugin header format for valid markdown.
+author: pantheon-systems
+branding:
+  icon: file-text
+  color: yellow
+runs:
+  using: composite
+  steps:
+    - name: Validate Readme
+      shell: bash
+      run: |
+        echo "Validating README.md..."
+        bash check-readme-newlines.sh
