@@ -4,6 +4,11 @@ author: pantheon-systems
 branding:
   icon: file-text
   color: yellow
+inputs:
+  filepath:
+    description: Relative path to README.md file. Defaults to the root directory of the project.
+    required: false
+    default: ${{ github.workspace }}/README.md
 runs:
   using: composite
   steps:
