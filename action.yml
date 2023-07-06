@@ -15,5 +15,5 @@ runs:
     - name: Validate Readme
       shell: bash
       run: |
-        echo "Validating README.md..."
-        bash check-readme-newlines.sh
+        echo "Validating ${{ inputs.filepath }}..."
+        bash check-readme-newlines.sh ${{ inputs.filepath }}
