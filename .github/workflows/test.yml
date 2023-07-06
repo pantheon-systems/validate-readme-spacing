@@ -10,29 +10,25 @@ jobs:
       - uses: ./
         with:
           filepath: ${{ github.workspace }}/fixtures/good.md
-  test-failures:
-      runs-on: ubuntu-latest
-      name: Validate bad README files
-      steps:
-        - uses: actions/checkout@v3
-        - name: Validate all fields are bad
-          run: |
-            echo "Running checks on fixtures/bad-all.md..."
-            if [[ $( bash check-readme-newlines.sh fixtures/bad-all.md ) ]]; then
-              echo "✅ Validated bad README successfully!"
-              exit 0;
-            else
-              echo "🚫 Invalidated bad README unsuccessfully."
-              exit 1
-            fi
-        - name: Validate single line is bad
-          run: |
-            echo "Running checks on fixtures/bad-single.md..."
-            if [[ $( bash check-readme-newlines.sh fixtures/bad-single.md ) ]]; then
-              echo "✅ Validated bad README successfully!"
-              exit 0;
-            else
-              echo "🚫 Invalidated bad README unsuccessfully."
-              exit 1
-            fi
-    
+      - uses: actions/checkout@v3
+      - name: Validate all fields are bad
+        run: |
+          echo "Running checks on fixtures/bad-all.md..."
+          if [[ $( bash check-readme-newlines.sh fixtures/bad-all.md ) ]]; then
+            echo "✅ Validated bad README successfully!"
+            exit 0;
+          else
+            echo "🚫 Invalidated bad README unsuccessfully."
+            exit 1
+          fi
+      - name: Validate single line is bad
+        run: |
+          echo "Running checks on fixtures/bad-single.md..."
+          if [[ $( bash check-readme-newlines.sh fixtures/bad-single.md ) ]]; then
+            echo "✅ Validated bad README successfully!"
+            exit 0;
+          else
+            echo "🚫 Invalidated bad README unsuccessfully."
+            exit 1
+          fi
+  
