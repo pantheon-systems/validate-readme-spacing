@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Autotag
+      - name: Install
         run: curl -sL https://git.io/autotag-install | sh --
+      - run: autotag -b main
+
   
