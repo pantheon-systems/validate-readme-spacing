@@ -11,5 +11,6 @@ if [ $(git rev-parse --abbrev-ref HEAD) != "main" ]; then
   git branch --track main origin/main
 fi
 
-./bin/autotag -b main
+NEW_RELEASE=$(./bin/autotag)
 git push --tags
+gh release create "v${NEW_RELEASE}" -t "v${NEW_RELEASE}" --generate-notes
