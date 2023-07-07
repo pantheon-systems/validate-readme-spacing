@@ -1,0 +1,13 @@
+name: Autotag
+on:
+  push:
+    branches:
+      - main
+jobs:
+  autotag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Autotag
+        run: curl -sL https://git.io/autotag-install | sh --
+  
