@@ -1,8 +1,8 @@
 name: Autotag
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
 jobs:
   autotag:
     runs-on: ubuntu-latest
