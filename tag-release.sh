@@ -13,3 +13,4 @@ fi
 
 ./bin/autotag -b main
 git push --tags
+gh release create ${GITHUB_REF#refs/*/} -t ${GITHUB_REF#refs/*/} --generate-notes -d
