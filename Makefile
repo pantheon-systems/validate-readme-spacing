@@ -3,3 +3,6 @@ lint:
 
 test:
 	./test.sh
+
+tag-release:
+	./tag-release.sh
