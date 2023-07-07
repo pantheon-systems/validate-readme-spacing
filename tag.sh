@@ -1,5 +1,5 @@
 #!/bin/sh
-set -eou pipefail
+set -e
 
 curl -sL https://git.io/autotag-install | sh --
 
