@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install
-        run: curl -sL https://git.io/autotag-install | sh -s -- -b /usr/bin
-      - run: autotag -b main
+        run: curl -sL https://git.io/autotag-install | sh --
+      - run: ./bin/autotag -b main
 
   
