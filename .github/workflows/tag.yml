@@ -11,6 +11,10 @@ jobs:
       - name: Install
         run: curl -sL https://git.io/autotag-install | sh --
       - run: git fetch --tags --unshallow --prune
+      - run: |
+        if [ $(git rev-parse --abbrev-ref HEAD) != "main" ]; then
+          git branch --track main origin/main
+        fi
       - run: ./bin/autotag -b main
       - run: git push --tags
 
