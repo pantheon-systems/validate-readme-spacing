@@ -5,4 +5,4 @@ test:
 	./test.sh
 
 tag-release:
-	./tag.sh
+	./tag-release.sh
