@@ -16,4 +16,4 @@ runs:
       shell: bash
       run: |
         echo "Validating ${{ inputs.filepath }}..."
-        bash check-readme-newlines.sh ${{ inputs.filepath }}
+        bash ${{ github.action_path }}/check-readme-newlines.sh ${{ inputs.filepath }}
