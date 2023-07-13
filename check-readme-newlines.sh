@@ -53,8 +53,41 @@ while IFS= read -r line; do
     if [[ "${line}" =~ .*[[:space:]]{2}$ ]]; then
         continue
     fi
-    
-    echo "This line is missing trailing spaces: ${line}"
+
+    # It's OK if the line does not end in two spaces, if there is a second line break.
+    # Use awk to search for the pattern and check for multiple newlines
+    if awk -v pattern="${line}" '
+      BEGIN {
+        found = 0
+        count = 0
+      }
+      $0 ~ pattern {
+        found = 1
+        next
+      }
+      found && NF == 0 {
+        count++
+        next
+      }
+      found && NF > 0 {
+        if (count > 1) {
+          exit 1
+        }
+        count = 0
+      }
+      END {
+        if (count > 1 || (count == 1 && NF > 0)) {
+          exit 1
+        }
+        exit !found
+      }' "$file"; then
+      echo "Multiple newlines found after '${line}'."
+      continue
+    else
+      echo "No multiple newlines found after '${line}'."
+    fi
+
+
     INVALID_LINE_FOUND=1
 done < "$file"
 
