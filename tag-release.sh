@@ -20,11 +20,11 @@ MAJOR_VERSION=$(echo "${NEW_RELEASE}" | cut -d'.' -f1)
 echo "Major version: ${MAJOR_VERSION}"
 
 MAJOR_VERSION_BRANCH="v${MAJOR_VERSION}"
-if git show-ref --verify --quiet refs/heads/action-path; then
+if git show-ref --verify --quiet "refs/heads/${MAJOR_VERSION_BRANCH}"; then
   git checkout -b "${MAJOR_VERSION_BRANCH}"
 else
   git checkout "${MAJOR_VERSION_BRANCH}"
+  git merge --ff-only main
 fi
 
-git merge --ff-only main
 git push origin "${MAJOR_VERSION_BRANCH}"
