@@ -1,5 +1,5 @@
 lint:
-	shellcheck ./check-readme-newlines.sh
+	shellcheck ./*.sh
 
 test:
 	./test.sh

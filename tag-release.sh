@@ -6,7 +6,7 @@ curl -sL https://git.io/autotag-install | sh --
 # fetch all tags and history:
 git fetch --tags --unshallow --prune
 
-if [ $(git rev-parse --abbrev-ref HEAD) != "main" ]; then
+if [ "$(git rev-parse --abbrev-ref HEAD)" != "main" ]; then
   git branch --track main origin/main
 fi
 
