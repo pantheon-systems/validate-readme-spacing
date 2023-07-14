@@ -14,6 +14,7 @@ README_HEADER_SECTIONS=("Contributors" "Donate link" "Tags" "Requires at least" 
 
 HEADER_ALRADY_READ=0
 INVALID_LINE_FOUND=0
+MAYBE_INVALID_LINE=""
 
 # Read the README line by line
 while IFS= read -r line; do
@@ -27,10 +28,19 @@ while IFS= read -r line; do
         continue
     fi
     
-    # Check if the line is empty
     if [[ "${line}" == "" ]]; then
+        # A line followed by a blank line (i.e. the last line) does not need double spaces.
+        # discard the last line's "maybe".
+        MAYBE_INVALID_LINE=""
         continue
     fi
+    
+
+    if [[ "${MAYBE_INVALID_LINE}" != "" ]]; then
+        echo "This line is missing its trailing spaces: '$MAYBE_INVALID_LINE'"
+        INVALID_LINE_FOUND=1
+    fi
+    MAYBE_INVALID_LINE=""
     
     # Skip if the line does not contain a colon
     if [[ "${line}" != *":"* ]]; then
@@ -53,9 +63,9 @@ while IFS= read -r line; do
     if [[ "${line}" =~ .*[[:space:]]{2}$ ]]; then
         continue
     fi
-    
-    echo "This line is missing trailing spaces: ${line}"
-    INVALID_LINE_FOUND=1
+
+    # This may be invalid, but if followed by a blank line, will be deemed acceptable.
+    MAYBE_INVALID_LINE="${line}"
 done < "$file"
 
 if [[ ${INVALID_LINE_FOUND} -eq 1 ]];then
