@@ -64,6 +64,7 @@ while IFS= read -r line; do
         continue
     fi
 
+    # This may be invalid, but if followed by a blank line, will be deemed acceptable.
     MAYBE_INVALID_LINE="${line}"
 done < "$file"
 
