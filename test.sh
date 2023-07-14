@@ -27,3 +27,10 @@ else
     echo "🚫 Invalidated good README unsuccessfully. Did the good-last-line-newlines.md file change? 😉"
     exit 1
 fi
+echo "Running checks on fixtures/good-middle-line-newlines.md..."
+if bash check-readme-newlines.sh fixtures/good-middle-line-newlines.md; then
+    echo "✅ Validated good README successfully!"
+else
+    echo "🚫 Invalidated good README unsuccessfully. Did the good-last-line-newlines.md file change? 😉"
+    exit 1
+fi

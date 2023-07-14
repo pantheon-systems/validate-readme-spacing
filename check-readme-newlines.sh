@@ -14,6 +14,7 @@ README_HEADER_SECTIONS=("Contributors" "Donate link" "Tags" "Requires at least" 
 
 HEADER_ALRADY_READ=0
 INVALID_LINE_FOUND=0
+MAYBE_INVALID_LINE=""
 
 # Read the README line by line
 while IFS= read -r line; do
@@ -27,10 +28,19 @@ while IFS= read -r line; do
         continue
     fi
     
-    # Check if the line is empty
     if [[ "${line}" == "" ]]; then
+        # A line followed by a blank line (i.e. the last line) does not need double spaces.
+        # discard the last line's "maybe".
+        MAYBE_INVALID_LINE=""
         continue
     fi
+    
+
+    if [[ "${MAYBE_INVALID_LINE}" != "" ]]; then
+        echo "'$MAYBE_INVALID_LINE' is invalid"
+        INVALID_LINE_FOUND=1
+    fi
+    MAYBE_INVALID_LINE=""
     
     # Skip if the line does not contain a colon
     if [[ "${line}" != *":"* ]]; then
@@ -54,41 +64,7 @@ while IFS= read -r line; do
         continue
     fi
 
-    # It's OK if the line does not end in two spaces, if there is a second line break.
-    # Use awk to search for the pattern and check for multiple newlines
-    if awk -v pattern="${line}" '
-      BEGIN {
-        found = 0
-        count = 0
-      }
-      $0 ~ pattern {
-        found = 1
-        next
-      }
-      found && NF == 0 {
-        count++
-        next
-      }
-      found && NF > 0 {
-        if (count > 1) {
-          exit 1
-        }
-        count = 0
-      }
-      END {
-        if (count > 1 || (count == 1 && NF > 0)) {
-          exit 1
-        }
-        exit !found
-      }' "$file"; then
-      echo "Multiple newlines found after '${line}'."
-      continue
-    else
-      echo "No multiple newlines found after '${line}'."
-    fi
-
-
-    INVALID_LINE_FOUND=1
+    MAYBE_INVALID_LINE="${line}"
 done < "$file"
 
 if [[ ${INVALID_LINE_FOUND} -eq 1 ]];then
