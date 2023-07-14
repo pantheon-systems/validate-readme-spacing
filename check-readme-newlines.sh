@@ -37,7 +37,7 @@ while IFS= read -r line; do
     
 
     if [[ "${MAYBE_INVALID_LINE}" != "" ]]; then
-        echo "'$MAYBE_INVALID_LINE' is invalid"
+        echo "This line is missing its trailing spaces: '$MAYBE_INVALID_LINE'"
         INVALID_LINE_FOUND=1
     fi
     MAYBE_INVALID_LINE=""
