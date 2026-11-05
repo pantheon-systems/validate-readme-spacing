@@ -14,6 +14,9 @@ runs:
   steps:
     - name: Validate Readme
       shell: bash
+      env:
+        ACTION_PATH: ${{ github.action_path }}
+        FILEPATH: ${{ inputs.filepath }}
       run: |
-        echo "Validating ${{ inputs.filepath }}..."
-        bash ${{ github.action_path }}/check-readme-newlines.sh ${{ inputs.filepath }}
+        echo "Validating ${FILEPATH}..."
+        bash "${ACTION_PATH}/check-readme-newlines.sh" "${FILEPATH}"
